@@ -17,8 +17,11 @@ defmodule Homework.Merchants do
       [%Merchant{}, ...]
 
   """
-  def list_merchants(_args) do
-    Repo.all(Merchant)
+  def list_merchants(args) do
+    case args do
+      %{name: name} -> from(m in Merchant, where: ilike(m.name, ^"%#{args.name}%")) |> Repo.all
+      _ -> Repo.all(Merchant)
+    end
   end
 
   @doc """

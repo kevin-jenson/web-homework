@@ -17,8 +17,13 @@ defmodule Homework.Users do
       [%User{}, ...]
 
   """
-  def list_users(_args) do
-    Repo.all(User)
+  def list_users(args) do
+    case args do
+      %{first_name: first_name, last_name: last_name} -> from(u in User, where: ilike(u.first_name, ^"%#{args.first_name}%"), where: ilike(u.last_name, ^"%#{args.last_name}%")) |> Repo.all
+      %{first_name: first_name} -> from(u in User, where: ilike(u.first_name, ^"%#{args.first_name}%")) |> Repo.all
+      %{last_name: last_name} -> from(u in User, where: ilike(u.last_name, ^"%#{args.last_name}%")) |> Repo.all
+      _ -> Repo.all(User)
+    end
   end
 
   @doc """
