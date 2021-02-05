@@ -36,6 +36,13 @@ defmodule HomeworkWeb.Resolvers.TransactionsResolver do
     {:ok, Merchants.get_merchant!(merchant_id)}
   end
 
+  @doc """
+  Get the company associated with a transaction
+  """
+  def merchant(_root, _args, %{source: %{company_id: company_id}}) do
+    {:ok, Companies.get_company!(company_id)}
+  end
+
   def value_from_float(value) do
     [dollar, cents] = Float.to_string(value) |> String.split(".")
     cents = case String.length(cents) do

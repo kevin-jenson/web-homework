@@ -55,6 +55,7 @@ defmodule Homework.Transactions do
 
   """
   def create_transaction(attrs \\ %{}) do
+    IO.inspect attrs
     %Transaction{}
     |> Transaction.changeset(attrs)
     |> Repo.insert()

@@ -1,3 +1,7 @@
 {
-    "extends": "divvy"
+    "plugins": ["prettier"],
+    "extends": "divvy",
+    "rules": {
+        "space-before-function-paren": "off"
+    }
 }

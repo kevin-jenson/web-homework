@@ -24,7 +24,7 @@ export function Home () {
 
   return (
     <Fragment>
-      <TxTable data={data.transactions} />
+      <TxTable data={data} />
     </Fragment>
   )
 }

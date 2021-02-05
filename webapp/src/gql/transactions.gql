@@ -1,11 +1,26 @@
 query GetTransactions {
-    transactions {
-        id
-        user_id
-        description
-        merchant_id
-        debit
-        credit
-        amount
-    }
+  transactions {
+    id
+    user_id
+    description
+    merchant_id
+    debit
+    credit
+    amount
+    company_id
+  }
+  users {
+    id
+    firstName
+    lastName
+  }
+  merchants {
+    id
+    name
+  }
+  companies {
+    id
+    name
+    availableCredit
+  }
 }
