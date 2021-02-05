@@ -1,23 +1,39 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import AppBar from '@material-ui/core/AppBar'
 import Toolbar from '@material-ui/core/Toolbar'
 import Button from '@material-ui/core/Button'
+import FormControlLabel from '@material-ui/core/FormControlLabel'
+import Switch from '@material-ui/core/Switch'
 import { Link } from 'react-router-dom'
 import { css } from '@emotion/core'
 
-export function Header() {
+export function Header({ checked, handleChange }) {
   return (
     <AppBar position='static'>
       <Toolbar>
         <Button component={Link} css={button} to='/'>
           Home
         </Button>
-        <Button component={Link} css={button} to='/roman-numerals'>
-          Roman Numerals
+        <Button component={Link} css={button} to='/grogu'>
+          Grogu
         </Button>
+        <FormControlLabel
+          control={<Switch checked={checked} color='secondary' onChange={handleChange} />}
+          css={css`
+            position: absolute;
+            right: 16px;
+          `}
+          label='Use Roman Numerals'
+        />
       </Toolbar>
     </AppBar>
   )
+}
+
+Header.propTypes = {
+  checked: PropTypes.bool,
+  handleChange: PropTypes.func
 }
 
 const button = css`

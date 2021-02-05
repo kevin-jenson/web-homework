@@ -17,11 +17,14 @@ import Modal from '../Modal'
 import DeleteTransaction from '../../gql/delete_transaction.gql'
 import UpdateTransaction from '../../gql/update_transaction.gql'
 import CreateTransaction from '../../gql/create_transaction.gql'
+import toRomanNumeral from '../../toRomanNumeral'
+import { RomanNumeralContext } from '../../routes'
 
 function TxCrud({ handleClose, open, event, transaction, data }) {
   let [deleteTransaction] = useMutation(DeleteTransaction)
   let [updateTransaction] = useMutation(UpdateTransaction)
   let [createTransaction] = useMutation(CreateTransaction)
+  let romanNumeralsChecked = React.useContext(RomanNumeralContext)
 
   let [form, setForm] = React.useState({ ...transaction })
   React.useEffect(() => {
@@ -203,7 +206,7 @@ function TxCrud({ handleClose, open, event, transaction, data }) {
 
             <Grid item xs={6}>
               Company&apos;s available credit:{' '}
-              {new Intl.NumberFormat('en', { style: 'currency', currency: 'USD' }).format(companiesAvailableCredit)}
+              {romanNumeralsChecked ? toRomanNumeral(companiesAvailableCredit) : new Intl.NumberFormat('en', { style: 'currency', currency: 'USD' }).format(companiesAvailableCredit)}
             </Grid>
 
             <Grid item xs={12}>

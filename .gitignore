@@ -1,7 +1,9 @@
 .vscode/
 .idea/
 node_modules/
+coverage/
 
 **/*/.vscode/
 **/*/.idea/
 **/*/node_modules/
+**/*/coverage/

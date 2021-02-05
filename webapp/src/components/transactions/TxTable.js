@@ -12,11 +12,13 @@ import IconButton from '@material-ui/core/IconButton'
 import Button from '@material-ui/core/Button'
 
 import TxCrud from './TxCrud'
+import toRomanNumeral from '../../toRomanNumeral'
+import { RomanNumeralContext } from '../../routes'
 import { Trash, Pencil } from '../icons'
 
 const makeDataTestId = (transactionId, fieldName) => `transaction-${transactionId}-${fieldName}`
 
-export function TxTable({ data }) {
+function TxTable({ data }) {
   let { transactions } = data
   let [state, dispatch] = React.useReducer(
     (_state, action) => {
@@ -35,6 +37,8 @@ export function TxTable({ data }) {
     },
     { open: false, event: null, transaction: {} }
   )
+
+  let romanNumeralsChecked = React.useContext(RomanNumeralContext)
 
   function handleClose() {
     dispatch({ type: 'CLOSE' })
@@ -97,7 +101,7 @@ export function TxTable({ data }) {
                   </TableCell>
 
                   <TableCell align='left' data-testid={makeDataTestId(id, 'amount')}>
-                    {new Intl.NumberFormat('en', { style: 'currency', currency: 'USD' }).format(amount)}
+                    {romanNumeralsChecked ? toRomanNumeral(amount) : new Intl.NumberFormat('en', { style: 'currency', currency: 'USD' }).format(amount)}
                   </TableCell>
 
                   <TableCell align='right' data-testid={makeDataTestId(id, 'actions')}>
@@ -121,6 +125,8 @@ export function TxTable({ data }) {
     </div>
   )
 }
+
+export default TxTable
 
 TxTable.propTypes = {
   data: PropTypes.object
